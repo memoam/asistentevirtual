@@ -1,0 +1,16 @@
+@import "vars";
+.container {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    margin: 0;
+    z-index: 3;
+}
+.topHeader {
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1em 0;
+}
