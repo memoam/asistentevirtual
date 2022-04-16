@@ -3,12 +3,14 @@ import Header from './components/header';
 import TakeControl from './components/takeControl';
 import LivingYourFuture from './components/livingYourFuture';
 import Budget from './components/budget';
+import ToPlan from './components/toPlan';
+import AmountSaveMoney from './components/amountSaveMoney';
 import assistant from './images/assistant.svg'
 import gnp from './images/gnp.svg'
 import styles from './styles/Home.module.scss'
 
 function App() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(0);
   const updateStep = (data) => {
     setStep(data);
   };
@@ -20,9 +22,10 @@ function App() {
           step === 0 ? (<TakeControl updateStep={updateStep} />)
             : step === 1 ? (<LivingYourFuture updateStep={updateStep} />)
               : step === 2 ? (<Budget updateStep={updateStep} />)
-                : null
+                : step === 3 ? (<ToPlan updateStep={updateStep} />)
+                  : step === 4 ? (<AmountSaveMoney updateStep={updateStep} />)
+                    : null
         }
-
       </div>
       <div className={styles.assistant}>
         <p className={styles.assistant__greet}>

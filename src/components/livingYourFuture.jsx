@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/Guri.module.scss';
-export default function LivingYourFuture() {
+export default function LivingYourFuture({ updateStep }) {
 
   return (
     <div className={styles.guri}>
@@ -23,7 +24,11 @@ export default function LivingYourFuture() {
           LA VIDA DE TUS SUEÑOS TE ESPERA
         </p>
         <div className={styles.livingYourFuture__control}>
-          <button type="button" className={styles.livingYourFuture__control_step}>
+          <button
+            type="button"
+            className={styles.livingYourFuture__control_step}
+            onClick={() => updateStep(2)}
+          >
             CONTINUAR
           </button>
         </div>
@@ -32,3 +37,6 @@ export default function LivingYourFuture() {
     </div>
   );
 }
+LivingYourFuture.propTypes = {
+  updateStep: PropTypes.func.isRequired,
+};

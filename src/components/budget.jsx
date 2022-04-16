@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/Guri.module.scss';
-export default function Budget() {
+
+export default function Budget({ updateStep }) {
   const [indicator] = useState(30);
   return (
     <div className={styles.guri}>
@@ -129,7 +131,11 @@ export default function Budget() {
           </div>
         </div>
         <div className={styles.budget__control}>
-          <button type="button" className={styles.budget__control_step}>
+          <button
+            type="button"
+            className={styles.budget__control_step}
+            onClick={() => updateStep(3)}
+          >
             CONTINUAR
           </button>
         </div>
@@ -137,3 +143,6 @@ export default function Budget() {
     </div >
   );
 }
+Budget.propTypes = {
+  updateStep: PropTypes.func.isRequired,
+};

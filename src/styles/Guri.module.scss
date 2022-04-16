@@ -9,7 +9,7 @@
 .takeControl {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 60%;
   &__title {
     p {
       text-align: center;
@@ -91,7 +91,7 @@
     margin-top: 4em;
   }
   &__data {
-    width: 60%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -102,8 +102,8 @@
       align-items: center;
       justify-content: center;
       div {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
         border-radius: 10px;
         background: #dcdcdc;
       }
@@ -139,7 +139,7 @@
       text-transform: uppercase;
     }
     &_grt {
-      width: 60%;
+      width: 70%;
       margin: 3em 0 1em;
       position: relative;
     }
@@ -254,6 +254,241 @@
       color: white;
       background: #294efa;
       font-size: 12px;
+    }
+  }
+}
+.amountSaveMoney {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__title {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    &_title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 0.3em;
+      text-transform: uppercase;
+    }
+    &_subtitle {
+      text-align: center;
+      margin-top: 1em;
+      font-weight: 500;
+    }
+    &_grt {
+      width: 70%;
+      margin: 2.3em 0 1em;
+      position: relative;
+    }
+    &_indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0.5em;
+      position: absolute;
+      top: -1.8em;
+      p {
+        margin: 0;
+      }
+      div {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #000;
+      }
+    }
+    &_graph {
+      width: 100%;
+      border-radius: 15px;
+      height: 1em;
+      background: #a3b3fa;
+    }
+    &_percentage {
+      border-radius: 15px;
+      height: 1em;
+      background: #294efa;
+    }
+  }
+  &__data {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    &_header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      p {
+        &:nth-child(2) {
+          font-weight: 600;
+          margin: 1em 0;
+        }
+        &:first-child {
+          font-weight: 500;
+          margin-top: 1em;
+        }
+      }
+      input {
+        width: 45%;
+      }
+    }
+    input {
+      background: white;
+      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 0.5em;
+      text-align: center;
+    }
+    label {
+      top: -5px;
+    }
+    &_note {
+      display: flex;
+      flex-direction: column;
+      width: fit-content;
+      margin-top: 0.5em;
+      p {
+        text-align: center;
+        font-size: 12px;
+      }
+    }
+  }
+  &__form {
+    width: 100%;
+    display: flex;
+    margin-top: 1.3em;
+    align-items: flex-end;
+    div {
+      width: 45%;
+      padding-left: 1.5em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    p {
+      font-weight: 600;
+    }
+  }
+  &__control {
+    width: 70%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1em;
+    &_step {
+      padding: 1em 3em;
+      border-radius: 30px;
+      color: white;
+      background: #294efa;
+      font-size: 12px;
+    }
+  }
+}
+.toPlan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+  &__title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 2em 0;
+  }
+  &__data {
+    display: flex;
+    width: 100%;
+    margin-top: 6em;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      background: #294efa;
+      width: 67%;
+      height: 3px;
+      left: 16.5%;
+      top: -3em;
+    }
+    &_img {
+      width: 33.33%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      margin-top: 3em;
+      div {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+        background: #dcdcdc;
+      }
+      p{
+        font-size: 14px;
+        font-weight: 600;
+        margin-top: 2em;
+      }
+    }
+  }
+  &__input,
+  &__form {
+    width: 33.33%;
+    padding: 0 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    input {
+      background: white;
+      box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      padding: 0.5em;
+      text-align: center;
+    }
+    label {
+      top: -5px;
+    }
+  }
+  &__form,
+  &__input {
+    &::before {
+      content: "";
+      position: absolute;
+      background: #294efa;
+      width: 3px;
+      height: 2em;
+    }
+  }
+  &__input {
+    &::before {
+      top: -3em;
+    }
+  }
+  &__form {
+    &::before {
+      top: 4.3em;
+    }
+  }
+  &__control {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2em;
+    &_step {
+      padding: 1em 3em;
+      border-radius: 30px;
+      color: white;
+      background: #294efa;
+      font-size: 12px;
+      width: calc(33% - 2em);
+      margin-right: 1em;
     }
   }
 }

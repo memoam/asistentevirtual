@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from '../styles/Guri.module.scss';
-export default function TakeControl() {
+export default function TakeControl({ updateStep }) {
 
   return (
     <div className={styles.guri}>
@@ -12,9 +13,9 @@ export default function TakeControl() {
         <div className={styles.takeControl__data}>
           <div className={styles.takeControl__form}>
             <label htmlFor="name">Me llamo...</label>
-            <input type="text" />
+            <input type="text" placeholder="Nombre" />
             <label htmlFor="phone">Telefono</label>
-            <input type="number" />
+            <input type="tel" placeholder="10 Digitos" />
             <label htmlFor="gender" className={styles.takeControl__form_noteGender}>
               Sexo al nacer
             </label>
@@ -28,18 +29,22 @@ export default function TakeControl() {
           </div>
           <div className={styles.takeControl__form}>
             <label htmlFor="email">Correo</label>
-            <input type="tel" />
+            <input type="tel" placeholder="Mail" />
             <label htmlFor="borndDate">Naci el...</label>
             <input type="date" />
             <label htmlFor="fumas">¿Fumas?</label>
-            <select name="fumas" id="fumas">
+            <select name="fumas" id="fumas" placeholder="Selecciona una opción…">
               <option value="yes">Si</option>
               <option value="no">No</option>
             </select>
           </div>
         </div>
         <div className={styles.takeControl__control}>
-          <button type="button" className={styles.takeControl__control_step}>
+          <button
+            type="button"
+            className={styles.takeControl__control_step}
+            onClick={() => updateStep(1)}
+          >
             CONTINUAR
           </button>
         </div>
@@ -47,3 +52,6 @@ export default function TakeControl() {
     </div>
   );
 }
+TakeControl.propTypes = {
+  updateStep: PropTypes.func.isRequired,
+};
