@@ -31,31 +31,31 @@ export default function Budget({ updateStep, updateBalance }) {
   const othersVariableBillsRef = useRef();
   const [amount, setAmount] = useState({ value: '', name: '' });
   const [income, setIncome] = useState({
-    constIncome: '',
-    variableIncome: '',
+    constIncome: 0,
+    variableIncome: 0,
   })
   const [constBills, setConstBills] = useState({
-    rent: '',
-    home: '',
-    supermarket: '',
-    phone: '',
-    doctor: '',
-    education: '',
-    meal: '',
-    gym: '',
-    sons: '',
-    pet: '',
-    credit: '',
-    sure: '',
-    othersConstBills: '',
+    rent: 0,
+    home: 0,
+    supermarket: 0,
+    phone: 0,
+    doctor: 0,
+    education: 0,
+    meal: 0,
+    gym: 0,
+    sons: 0,
+    pet: 0,
+    credit: 0,
+    sure: 0,
+    othersConstBills: 0,
   });
   const [variableBills, setVariableBills] = useState({
-    shopping: '',
-    weekends: '',
-    travels: '',
-    gifts: '',
-    domiciliaryServices: '',
-    othersVariableBills: '',
+    shopping: 0,
+    weekends: 0,
+    travels: 0,
+    gifts: 0,
+    domiciliaryServices: 0,
+    othersVariableBills: 0,
   })
   const stringOptions = {
     maximumFractionDigits: 2,
@@ -125,16 +125,12 @@ export default function Budget({ updateStep, updateBalance }) {
     const val = inputValue === '' ? ''
       : typeof inputValue === 'string' ? Number(inputValue.replace(/[$,]/g, ''))
         : inputValue;
-    prevState[field] = (val > 0 ? val : '');
+    prevState[field] = (val !== '' ? val : 0);
     setAmount({ value: event.target.value, name: field });
     setIncome(prevState);
-    if (income.constIncome !== '' && income.variableIncome !== '')
-      setBalanceIncome(parseFloat(income.constIncome) + parseFloat(income.variableIncome));
-    else
-      setBalanceIncome(0);
-    if (balanceIncome !== 0 && balanceConstBills !== 0 && balanceVariableBills !== 0)
-      setBalance(balanceIncome - balanceConstBills - balanceVariableBills);
-    else setBalance(0);
+    const value = prevState.constIncome + prevState.variableIncome;
+    setBalanceIncome(value);
+    setBalance(value - balanceConstBills - balanceVariableBills);
   };
   const changeInputConstBills = (event, field) => {
     const prevState = constBills;
@@ -143,44 +139,25 @@ export default function Budget({ updateStep, updateBalance }) {
     const val = inputValue === '' ? ''
       : typeof inputValue === 'string' ? Number(inputValue.replace(/[$,]/g, ''))
         : inputValue;
-    prevState[field] = (val > 0 ? val : '');
+    prevState[field] = (val !== '' ? val : 0);
     setAmount({ value: event.target.value, name: field });
     setConstBills(prevState);
-    if (
-      constBills.rent !== ''
-      && constBills.home !== ''
-      && constBills.supermarket !== ''
-      && constBills.phone !== ''
-      && constBills.doctor !== ''
-      && constBills.education !== ''
-      && constBills.meal !== ''
-      && constBills.gym !== ''
-      && constBills.sons !== ''
-      && constBills.pet !== ''
-      && constBills.credit !== ''
-      && constBills.sure !== ''
-      && constBills.othersConstBills !== ''
-    )
-      setBalanceConstBills(
-        parseFloat(constBills.rent)
-        + parseFloat(constBills.home)
-        + parseFloat(constBills.supermarket)
-        + parseFloat(constBills.phone)
-        + parseFloat(constBills.doctor)
-        + parseFloat(constBills.education)
-        + parseFloat(constBills.meal)
-        + parseFloat(constBills.gym)
-        + parseFloat(constBills.sons)
-        + parseFloat(constBills.pet)
-        + parseFloat(constBills.credit)
-        + parseFloat(constBills.sure)
-        + parseFloat(constBills.othersConstBills)
-      );
-    else setBalanceConstBills(0);
-    if (balanceIncome !== 0 && balanceConstBills !== 0 && balanceVariableBills !== 0)
-      setBalance(balanceIncome - balanceConstBills - balanceVariableBills);
-    else setBalance(0);
-    console.log(constBills);
+    const value =
+      prevState.rent
+      + prevState.home
+      + prevState.supermarket
+      + prevState.phone
+      + prevState.doctor
+      + prevState.education
+      + prevState.meal
+      + prevState.gym
+      + prevState.sons
+      + prevState.pet
+      + prevState.credit
+      + prevState.sure
+      + prevState.othersConstBills;
+    setBalanceConstBills(value);
+    setBalance(balanceIncome - value - balanceVariableBills);
   };
   const changeInputVariableBills = (event, field) => {
     const prevState = variableBills;
@@ -189,29 +166,19 @@ export default function Budget({ updateStep, updateBalance }) {
     const val = inputValue === '' ? ''
       : typeof inputValue === 'string' ? Number(inputValue.replace(/[$,]/g, ''))
         : inputValue;
-    prevState[field] = (val > 0 ? val : '');
+    prevState[field] = (val !== '' ? val : 0);
+    console.log(prevState);
     setAmount({ value: event.target.value, name: field });
     setVariableBills(prevState);
-    if (
-      variableBills.shopping !== ''
-      && variableBills.weekends !== ''
-      && variableBills.travels !== ''
-      && variableBills.gifts !== ''
-      && variableBills.domiciliaryServices !== ''
-      && variableBills.othersVariableBills !== ''
-    )
-      setBalanceVariableBills(
-        parseFloat(variableBills.shopping)
-        + parseFloat(variableBills.weekends)
-        + parseFloat(variableBills.travels)
-        + parseFloat(variableBills.gifts)
-        + parseFloat(variableBills.domiciliaryServices)
-        + parseFloat(variableBills.othersVariableBills)
-      );
-    else setBalanceVariableBills(0);
-    if (balanceIncome !== 0 && balanceConstBills !== 0 && balanceVariableBills !== 0)
-      setBalance(balanceIncome - balanceConstBills - balanceVariableBills);
-    else setBalance(0);
+    const value =
+      prevState.shopping
+      + prevState.weekends
+      + prevState.travels
+      + prevState.gifts
+      + prevState.domiciliaryServices
+      + prevState.othersVariableBills;
+    setBalanceVariableBills(value);
+    setBalance(balanceIncome - balanceConstBills - value);
   };
   const validateData = (e) => {
     e.preventDefault();
@@ -241,11 +208,11 @@ export default function Budget({ updateStep, updateBalance }) {
             </div>
             <div className={styles.budget__form_input}>
               <p>Ingreso fijo:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="constIncome" id="constIncome" onChange={(ev) => changeInputIncome(ev, 'constIncome')} defaultValue={income.constIncome} ref={constIncomeRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="constIncome" id="constIncome" onChange={(ev) => changeInputIncome(ev, 'constIncome')} ref={constIncomeRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Ingreso variable:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="variableIncome" id="variableIncome" onChange={(ev) => changeInputIncome(ev, 'variableIncome')} defaultValue={income.variableIncome} ref={variableIncomeRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="variableIncome" id="variableIncome" onChange={(ev) => changeInputIncome(ev, 'variableIncome')} ref={variableIncomeRef} onBlur={onBlurEvent} />
             </div>
           </div>
           <div className={styles.budget__form}>
@@ -255,55 +222,55 @@ export default function Budget({ updateStep, updateBalance }) {
             </div>
             <div className={styles.budget__form_input}>
               <p>Renta:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="rent" id="rent" onChange={(ev) => changeInputConstBills(ev, 'rent')} defaultValue={constBills.rent} ref={rentRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="rent" id="rent" onChange={(ev) => changeInputConstBills(ev, 'rent')} ref={rentRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Gastos Casa:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="home" id="home" onChange={(ev) => changeInputConstBills(ev, 'home')} defaultValue={constBills.home} ref={homeRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="home" id="home" onChange={(ev) => changeInputConstBills(ev, 'home')} ref={homeRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Supermercado:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="supermarket" id="supermarket" onChange={(ev) => changeInputConstBills(ev, 'supermarket')} defaultValue={constBills.supermarket} ref={supermarketRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="supermarket" id="supermarket" onChange={(ev) => changeInputConstBills(ev, 'supermarket')} ref={supermarketRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Celular</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="phone" id="phone" onChange={(ev) => changeInputConstBills(ev, 'phone')} defaultValue={constBills.phone} ref={phoneRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="phone" id="phone" onChange={(ev) => changeInputConstBills(ev, 'phone')} ref={phoneRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Doctor/Terapia</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="doctor" id="doctor" onChange={(ev) => changeInputConstBills(ev, 'doctor')} defaultValue={constBills.doctor} ref={doctorRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="doctor" id="doctor" onChange={(ev) => changeInputConstBills(ev, 'doctor')} ref={doctorRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Educación:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="education" id="education" onChange={(ev) => changeInputConstBills(ev, 'education')} defaultValue={constBills.education} ref={educationRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="education" id="education" onChange={(ev) => changeInputConstBills(ev, 'education')} ref={educationRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Comidas en trabajo:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="meal" id="meal" onChange={(ev) => changeInputConstBills(ev, 'meal')} defaultValue={constBills.meal} ref={mealRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="meal" id="meal" onChange={(ev) => changeInputConstBills(ev, 'meal')} ref={mealRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Gimnasio:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="gym" id="gym" onChange={(ev) => changeInputConstBills(ev, 'gym')} defaultValue={constBills.gym} ref={gymRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="gym" id="gym" onChange={(ev) => changeInputConstBills(ev, 'gym')} ref={gymRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Hijos:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="sons" id="sons" onChange={(ev) => changeInputConstBills(ev, 'sons')} defaultValue={constBills.sons} ref={sonsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="sons" id="sons" onChange={(ev) => changeInputConstBills(ev, 'sons')} ref={sonsRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Mascota:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="pet" id="pet" onChange={(ev) => changeInputConstBills(ev, 'pet')} defaultValue={constBills.pet} ref={petRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="pet" id="pet" onChange={(ev) => changeInputConstBills(ev, 'pet')} ref={petRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Créditos o prestamos:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="credit" id="credit" onChange={(ev) => changeInputConstBills(ev, 'credit')} defaultValue={constBills.credit} ref={creditRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="credit" id="credit" onChange={(ev) => changeInputConstBills(ev, 'credit')} ref={creditRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Seguros:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="sure" id="sure" onChange={(ev) => changeInputConstBills(ev, 'sure')} defaultValue={constBills.sure} ref={sureRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="sure" id="sure" onChange={(ev) => changeInputConstBills(ev, 'sure')} ref={sureRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Otros:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="othersConstBills" id="othersConstBills" onChange={(ev) => changeInputConstBills(ev, 'othersConstBills')} defaultValue={constBills.othersConstBills} ref={othersConstBillsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="othersConstBills" id="othersConstBills" onChange={(ev) => changeInputConstBills(ev, 'othersConstBills')} ref={othersConstBillsRef} onBlur={onBlurEvent} />
             </div>
           </div>
           <div className={styles.budget__form}>
@@ -313,27 +280,27 @@ export default function Budget({ updateStep, updateBalance }) {
             </div>
             <div className={styles.budget__form_input}>
               <p>Compras:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="shopping" id="shopping" onChange={(ev) => changeInputVariableBills(ev, 'shopping')} defaultValue={variableBills.shopping} ref={shoppingRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="shopping" id="shopping" onChange={(ev) => changeInputVariableBills(ev, 'shopping')} ref={shoppingRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Fines de semana:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="weekends" id="weekends" onChange={(ev) => changeInputVariableBills(ev, 'weekends')} defaultValue={variableBills.weekends} ref={weekendsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="weekends" id="weekends" onChange={(ev) => changeInputVariableBills(ev, 'weekends')} ref={weekendsRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Viajes:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="travels" id="travels" onChange={(ev) => changeInputVariableBills(ev, 'travels')} defaultValue={variableBills.travels} ref={travelsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="travels" id="travels" onChange={(ev) => changeInputVariableBills(ev, 'travels')} ref={travelsRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Regalos:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="gifts" id="gifts" onChange={(ev) => changeInputVariableBills(ev, 'gifts')} defaultValue={variableBills.gifts} ref={giftsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="gifts" id="gifts" onChange={(ev) => changeInputVariableBills(ev, 'gifts')} ref={giftsRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Servicios a domicilio:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="domiciliaryServices" id="domiciliaryServices" onChange={(ev) => changeInputVariableBills(ev, 'domiciliaryServices')} defaultValue={variableBills.domiciliaryServices} ref={domiciliaryServicesRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="domiciliaryServices" id="domiciliaryServices" onChange={(ev) => changeInputVariableBills(ev, 'domiciliaryServices')} ref={domiciliaryServicesRef} onBlur={onBlurEvent} />
             </div>
             <div className={styles.budget__form_input}>
               <p>Otros:</p>
-              <input type="text" className={styles.budget__inputData} placeholder="$" name="othersVariableBills" id="othersVariableBills" onChange={(ev) => changeInputVariableBills(ev, 'othersVariableBills')} defaultValue={variableBills.othersVariableBills} ref={othersVariableBillsRef} onBlur={onBlurEvent} />
+              <input type="text" className={styles.budget__inputData} placeholder="$" name="othersVariableBills" id="othersVariableBills" onChange={(ev) => changeInputVariableBills(ev, 'othersVariableBills')} ref={othersVariableBillsRef} onBlur={onBlurEvent} />
             </div>
 
           </div>

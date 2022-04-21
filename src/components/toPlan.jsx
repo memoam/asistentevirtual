@@ -32,7 +32,7 @@ export default function ToPlan({ updateStep, balance, image }) {
             <label htmlFor="">Guardadito de la paz</label>
             <p>{`${data.var1.toLocaleString('es-MX', stringOptions)}`}</p>
           </div>
-          <div className={styles.toPlan__input}>
+          <div className={styles.toPlan__inputM}>
             <label htmlFor="">Ahorro para corto plazo</label>
             <p>{`${data.var2.toLocaleString('es-MX', stringOptions)}`}</p>
           </div>
@@ -52,8 +52,8 @@ export default function ToPlan({ updateStep, balance, image }) {
         </div>
         <div className={styles.toPlan__data_img}>
           <img src={image === 'image1' ? image1 : image === 'image2' ? image2 : image3} alt="Estilo de vida" />
-          <p>Tu sueño esta a pocos pasos de cumplirse</p>
         </div>
+        <p>Tu sueño esta a pocos pasos de cumplirse</p>
       </div>
     </div >
   );
