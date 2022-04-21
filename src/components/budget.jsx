@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from '../styles/Guri.module.scss';
 
 export default function Budget({ updateStep, updateBalance }) {
-  const [indicator] = useState(100);
+  const [indicator, setIndicator] = useState(100);
   const [balanceIncome, setBalanceIncome] = useState(0)
   const [balanceConstBills, setBalanceConstBills] = useState(0)
   const [balanceVariableBills, setBalanceVariableBills] = useState(0)
@@ -118,6 +118,7 @@ export default function Budget({ updateStep, updateBalance }) {
   function onBlurEvent() {
     setCurrency(amount);
   }
+  console.log(indicator);
   const changeInputIncome = (event, field) => {
     const prevState = income;
     let { value: inputValue } = event.target;
@@ -131,6 +132,8 @@ export default function Budget({ updateStep, updateBalance }) {
     const value = prevState.constIncome + prevState.variableIncome;
     setBalanceIncome(value);
     setBalance(value - balanceConstBills - balanceVariableBills);
+    const indicatorAux = ((value - balanceConstBills - balanceVariableBills) / value) * 100;
+    setIndicator(isNaN(indicatorAux) ? 100 : !isFinite(indicatorAux) ? 0 : indicatorAux < 0 ? 0 : indicatorAux);
   };
   const changeInputConstBills = (event, field) => {
     const prevState = constBills;
@@ -158,6 +161,8 @@ export default function Budget({ updateStep, updateBalance }) {
       + prevState.othersConstBills;
     setBalanceConstBills(value);
     setBalance(balanceIncome - value - balanceVariableBills);
+    const indicatorAux = ((balanceIncome - value - balanceVariableBills) / balanceIncome) * 100;
+    setIndicator(isNaN(indicatorAux) ? 100 : !isFinite(indicatorAux) ? 0 : indicatorAux < 0 ? 0 : indicatorAux);
   };
   const changeInputVariableBills = (event, field) => {
     const prevState = variableBills;
@@ -179,6 +184,8 @@ export default function Budget({ updateStep, updateBalance }) {
       + prevState.othersVariableBills;
     setBalanceVariableBills(value);
     setBalance(balanceIncome - balanceConstBills - value);
+    const indicatorAux = ((balanceIncome - balanceConstBills - value) / balanceIncome) * 100;
+    setIndicator(isNaN(indicatorAux) ? 100 : !isFinite(indicatorAux) ? 0 : indicatorAux < 0 ? 0 : indicatorAux);
   };
   const validateData = (e) => {
     e.preventDefault();
@@ -193,7 +200,7 @@ export default function Budget({ updateStep, updateBalance }) {
           <p>elaborar una estrategía que te permita disfrutar del futuro.</p>
           <div className={styles.budget__title_grt}>
             <div className={styles.budget__title_indicator} style={{ right: `${indicator}%` }} >
-              <p>{`${indicator}%`}</p>
+              <p>{`${indicator.toFixed(2)}%`}</p>
               <div />
             </div>
             <div className={styles.budget__title_graph} />
